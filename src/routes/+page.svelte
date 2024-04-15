@@ -195,4 +195,4 @@
 
 <canvas bind:this={canvas}></canvas>
 
-<!-- <h1 class="text-blue-400 absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-6xl select-none">SRCHRS</h1> -->
+<h1 class="text-blue-400 absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-6xl select-none">SRCHRS</h1>
