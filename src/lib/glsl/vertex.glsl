@@ -1,7 +1,58 @@
-varying vec2 vUv; // Declare varying variable to pass UV coordinates to the fragment shader
+uniform float uTime;
+uniform float uPositionFrequency;
+uniform float uStrength;
+uniform float uWarpFrequency;
+uniform float uWarpStrength;
 
-void main() {
+varying vec3 vPosition;
+varying float vUpDot;
 
-	vUv = uv;
-	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+varying vec2 vUv;
+
+#include ./includes/simplexNoise2d.glsl
+
+float getElevation(vec2 position)
+{
+    vec2 warpedPosition = position;
+    warpedPosition -= uTime * 0.2;
+    warpedPosition += simplexNoise2d(warpedPosition * uPositionFrequency * uWarpFrequency) * uWarpStrength;
+    
+    float elevation = 0.0;
+    elevation += simplexNoise2d(warpedPosition * uPositionFrequency      ) / 2.0;
+    elevation += simplexNoise2d(warpedPosition * uPositionFrequency * 2.0) / 4.0;
+    elevation += simplexNoise2d(warpedPosition * uPositionFrequency * 4.0) / 8.0;
+
+    float elevationSign = sign(elevation);
+    elevation = pow(abs(elevation), 2.0) * elevationSign;
+    elevation *= uStrength;
+
+    return elevation;
+}
+
+void main()
+{
+    // Neighbours positions
+    float shift = 0.01;
+    vec3 positionA = position.xyz + vec3(shift, 0.0, 0.0);
+    vec3 positionB = position.xyz + vec3(0.0, 0.0, - shift);
+
+    // Elevation
+    float elevation = getElevation(csm_Position.xz);
+    csm_Position.y += elevation;
+    positionA.y    += getElevation(positionA.xz);
+    positionB.y    += getElevation(positionB.xz);
+    
+    // Compute normal
+    vec3 toA = normalize(positionA - csm_Position);
+    vec3 toB = normalize(positionB - csm_Position);
+    csm_Normal = cross(toA, toB);
+
+    // Varyings
+    vPosition = csm_Position;
+    vPosition.xz -= uTime * 0.2;
+    //warp vPosition
+    vPosition.xz += simplexNoise2d(vPosition.xz * uPositionFrequency * uWarpFrequency) * uWarpStrength;
+    vPosition.y += getElevation(vPosition.xz);
+    
+    vUpDot = dot(csm_Normal, vec3(0.0, 1.0, 0.0));
 }
