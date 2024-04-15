@@ -52,7 +52,7 @@ void main()
     vPosition.xz -= uTime * 0.2;
     //warp vPosition
     vPosition.xz += simplexNoise2d(vPosition.xz * uPositionFrequency * uWarpFrequency) * uWarpStrength;
-    vPosition.y += getElevation(vPosition.xz);
+    vPosition.y += getElevation(vPosition.xz );
     
     vUpDot = dot(csm_Normal, vec3(0.0, 1.0, 0.0));
 }

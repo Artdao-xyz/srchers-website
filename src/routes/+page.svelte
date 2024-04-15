@@ -15,6 +15,7 @@
     import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
     import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js'
     import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js'
+    import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
     let canvas;
     let controls;
@@ -27,7 +28,8 @@
 
         const sizes = {
             width: window.innerWidth,
-            height: window.innerHeight
+            height: window.innerHeight,
+            pixelRatio: Math.min(window.devicePixelRatio, 2)
         };
 
         const scene = new THREE.Scene();
@@ -42,7 +44,7 @@
         renderer.toneMappingExposure = 1
         renderer.setSize(sizes.width, sizes.height)
         renderer.setPixelRatio(sizes.pixelRatio);
-        // scene.background = new THREE.Color('#ff')
+        //scene.background = new THREE.Color('#ff')
 
         const geometry = new THREE.PlaneGeometry(25, 25, 1000, 1000)
         geometry.deleteAttribute('uv')
@@ -88,7 +90,7 @@
         terrain.customDepthMaterial = depthMaterial
         scene.add(terrain)
 
-        let directionalLight = new THREE.DirectionalLight('#ffffff', 3.5)
+        let directionalLight = new THREE.DirectionalLight('#ffffff', 5)
         directionalLight.position.set(6.25, 3, 4)
         directionalLight.castShadow = true
         directionalLight.shadow.mapSize.set(1024, 1024)
@@ -118,17 +120,17 @@
         controls.movementSpeed = 0.00000000001;
         controls.lookSpeed = .0025;        
 
-        const fog = new THREE.Fog('#000000', 1, 20);
+        const fog = new THREE.Fog('#000000', 1, 15);
         scene.fog = fog;
 
         const composer = new EffectComposer(renderer);
         composer.addPass(new RenderPass(scene, camera));
 
         const effectFXAA = new ShaderPass(FXAAShader);
-        effectFXAA.uniforms['resolution'].value.set(1 / sizes.width, 1 / sizes.height);
+        effectFXAA.uniforms['resolution'].value.set(1 / ( sizes.width * sizes.pixelRatio ), 1 / ( sizes.height * sizes.pixelRatio ));
         composer.addPass(effectFXAA);
 
-        const bloomPass = new UnrealBloomPass(new THREE.Vector2(sizes.width, sizes.height), 1.5, 0.4, 0.95);
+        const bloomPass = new UnrealBloomPass(new THREE.Vector2(sizes.width, sizes.height), 1.5, 0.4, 1.25);
         bloomPass.enabled = false;
         composer.addPass(bloomPass);
 
@@ -139,6 +141,12 @@
         glitchPass.enabled = false;
         composer.addPass(glitchPass);
 
+        //add OutputPass 
+        // const outputPass = new OutputPass();
+        // outputPass.renderToScreen = true;
+        // composer.addPass(outputPass);
+
+
         onresize = () => {
             sizes.width = window.innerWidth;
             sizes.height = window.innerHeight;
@@ -148,6 +156,7 @@
 
             controls.handleResize();
             renderer.setSize(sizes.width, sizes.height);
+            
         };
 
         const clock = new THREE.Clock()
