@@ -19,8 +19,9 @@ float y_smoothstep(float a, float b, float x) {
 void main()
 {    
     // Color
-    float offset = 0.15; // Adjust this value as needed
-    float color = step(0.0, vPosition.y + offset);
+    float offset = 0.1; // Adjust this value as needed
+    float color = step(0.0, vPosition.y);
+    
     // Final color
     csm_DiffuseColor = vec4(vec3(color), 1.0);
 }

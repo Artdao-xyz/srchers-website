@@ -24,6 +24,7 @@
 	"type": "module",
 	"dependencies": {
 		"lil-gui": "^0.19.2",
+		"postprocessing": "^6.35.3",
 		"three": "^0.163.0",
 		"three-custom-shader-material": "^5.4.0"
 	}
