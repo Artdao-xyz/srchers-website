@@ -14,7 +14,6 @@
     import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
     import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
     import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js'
-    import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js'
     import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js'
 	import TextScramble from '$lib/TextScramble.js';
 
@@ -27,8 +26,7 @@
         let logo = {'Logo' : 'srchrs-logo-4.svg'};
         srcFile = logo.Logo;
 
-        new TextScramble(h1, 'SRCHERS');
-        new TextScramble(h2, 'LAUNCHING 2025');
+        scramble();
 
         active = window.location.hash === '#debug';
 
@@ -104,7 +102,7 @@
         scene.add(ambientLight)
 
         const camera = new THREE.PerspectiveCamera(30, sizes.width / sizes.height, 0.1, 100)
-        camera.position.set(0, 0.41, 0);
+        camera.position.set(0, 0.4, 0);
         camera.rotation.x = -Math.PI / 7;
         //debug view
         // camera.position.set(0, 10.20, 0);
@@ -234,6 +232,11 @@
             postProcessFolder.add(fog, 'far', 0.001, 15, 0.001).name('Fog Far')
         }
     });
+
+    const scramble = () => {
+        new TextScramble(h1, 'SRCHERS');
+        new TextScramble(h2, 'LAUNCHING 2025');
+    }
 </script>
 
 <canvas class="-z-10" bind:this={canvas}></canvas>
@@ -242,6 +245,6 @@
     <!-- <img src={`${srcFile}`} class="scale-50 md:scale-100 absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-10" alt="logo">
     <img src="/launching.svg" class="scale-50 md:scale-100 absolute left-1/2 -translate-x-1/2 top-2/3 -translate-y-2/3  z-10" alt="logo"> -->
 
-    <h1 class="font-reglo font-bold text-8xl text-orange-100 leading-10 tracking-widest absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2" bind:this={h1}> </h1>
+    <h1 on:mouseenter={scramble} class="font-reglo font-bold text-8xl text-orange-100 leading-10 tracking-widest absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2" bind:this={h1}> </h1>
     <h2 class="font-reglo font-bold text-3xl text-orange-100 leading-10 tracking-widest absolute left-1/2 -translate-x-1/2 top-1/2 translate-y-20" bind:this={h2}> </h2>
 <!-- {/if} -->
