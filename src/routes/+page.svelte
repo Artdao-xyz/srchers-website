@@ -16,8 +16,9 @@
     import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js'
     import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js'
     import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js'
+	import TextScramble from '$lib/TextScramble.js';
 
-    let canvas, controls, active, srcFile;
+    let canvas, h1, h2, controls, active, srcFile;
 
     let loaded = false;
     
@@ -25,6 +26,9 @@
         
         let logo = {'Logo' : 'srchrs-logo-4.svg'};
         srcFile = logo.Logo;
+
+        new TextScramble(h1, 'SRCHERS');
+        new TextScramble(h2, 'LAUNCHING 2025');
 
         active = window.location.hash === '#debug';
 
@@ -61,10 +65,10 @@
         
         const uniforms = {
             uTime: new THREE.Uniform(0),
-            uPositionFrequency: new THREE.Uniform(0.15),
-            uStrength: new THREE.Uniform(0.35),
-            uWarpFrequency: new THREE.Uniform(2.5),
-            uWarpStrength: new THREE.Uniform(1.4),
+            uPositionFrequency: new THREE.Uniform(0.6),
+            uStrength: new THREE.Uniform(0.7),
+            uWarpFrequency: new THREE.Uniform(0.2),
+            uWarpStrength: new THREE.Uniform(0.9),
         }
 
         const material = new CustomShaderMaterial({
@@ -76,7 +80,7 @@
             silent: true,
 
             // MeshPhysicalMaterial
-            metalness: 0,
+            metalness: 0.2,
             roughness: 0.5,
             color: '#ffffff',
         })
@@ -84,8 +88,8 @@
         const terrain = new THREE.Mesh(geometry, material)
         scene.add(terrain)
 
-        let directionalLight = new THREE.DirectionalLight('#ffffff', 5)
-        directionalLight.position.set(6.25, 3, 4)
+        let directionalLight = new THREE.DirectionalLight('#ffffff', 3.5)
+        directionalLight.position.set(-6.25, 8, -4)
         directionalLight.castShadow = true
         directionalLight.shadow.mapSize.set(1024, 1024)
         directionalLight.shadow.camera.near = 0.1
@@ -100,7 +104,7 @@
         scene.add(ambientLight)
 
         const camera = new THREE.PerspectiveCamera(30, sizes.width / sizes.height, 0.1, 100)
-        camera.position.set(0, 0.25, 0);
+        camera.position.set(0, 0.41, 0);
         camera.rotation.x = -Math.PI / 7;
         //debug view
         // camera.position.set(0, 10.20, 0);
@@ -118,7 +122,7 @@
         controls.movementSpeed = 0.0;
         controls.lookSpeed = .002;        
 
-        const fog = new THREE.Fog('#000000', 0.001, 1.25);
+        const fog = new THREE.Fog('#000000', 0.001, 1.8);
         scene.fog = fog;
 
         const composer = new EffectComposer(renderer);
@@ -144,7 +148,7 @@
         composer.addPass(bloomPass);
 
         const filmPass = new FilmPass(0.35, 0.025, 648, false);
-        filmPass.enabled = false;
+        // filmPass.enabled = false;
         composer.addPass(filmPass);
 
         onresize = () => {
@@ -213,7 +217,6 @@
             folderShader.add(uniforms.uStrength, 'value', 0.15, 0.35, 0.001).name('uStrength')
             folderShader.add(uniforms.uWarpFrequency, 'value', 0, 8, 0.001).name('uWarpFrequency')
             folderShader.add(uniforms.uWarpStrength, 'value', 0, 4, 0.001).name('uWarpStrength')
-            // add a parameter to increase uTimeAmount
             folderShader.add({ uTimeAmount: uTimeAmount }, 'uTimeAmount', 0, 5, 0.001).name('uVelocity').onChange((value) => {
                 uTimeAmount = value
             })
@@ -235,11 +238,10 @@
 
 <canvas class="-z-10" bind:this={canvas}></canvas>
 
-<!-- <h1 class="text-blue-400 absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-6xl select-none">SRCHRS</h1> -->
-<!-- create a img tag placed in the center -->
-{#if loaded}
-    <img src={`${srcFile}`} class="scale-50 md:scale-100 absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-10" alt="logo">
+<!-- {#if loaded} -->
+    <!-- <img src={`${srcFile}`} class="scale-50 md:scale-100 absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-10" alt="logo">
+    <img src="/launching.svg" class="scale-50 md:scale-100 absolute left-1/2 -translate-x-1/2 top-2/3 -translate-y-2/3  z-10" alt="logo"> -->
 
-    <!-- add another img at 3/4 of the canvas from top to bottom -->
-    <img src="/launching.svg" class="scale-50 md:scale-100 absolute left-1/2 -translate-x-1/2 top-2/3 -translate-y-2/3  z-10" alt="logo">
-{/if}
+    <h1 class="font-reglo font-bold text-8xl text-orange-100 leading-10 tracking-widest absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2" bind:this={h1}> </h1>
+    <h2 class="font-reglo font-bold text-3xl text-orange-100 leading-10 tracking-widest absolute left-1/2 -translate-x-1/2 top-1/2 translate-y-20" bind:this={h2}> </h2>
+<!-- {/if} -->

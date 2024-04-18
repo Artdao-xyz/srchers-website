@@ -21,6 +21,9 @@ void main()
     // Color
     float offset = 0.1; // Adjust this value as needed
     float color = step(0.0, vPosition.y);
+
+    //multiply the blacks to make it less blacks
+    
     
     // Final color
     csm_DiffuseColor = vec4(vec3(color), 1.0);
