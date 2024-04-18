@@ -80,7 +80,7 @@
             silent: true,
 
             // MeshPhysicalMaterial
-            metalness: 0.2,
+            metalness: 0.5,
             roughness: 0.5,
             color: '#ffffff',
         })
@@ -88,7 +88,7 @@
         const terrain = new THREE.Mesh(geometry, material)
         scene.add(terrain)
 
-        let directionalLight = new THREE.DirectionalLight('#ffffff', 3.5)
+        let directionalLight = new THREE.DirectionalLight('#ffffff', 1.3)
         directionalLight.position.set(-6.25, 8, -4)
         directionalLight.castShadow = true
         directionalLight.shadow.mapSize.set(1024, 1024)
@@ -122,7 +122,7 @@
         controls.movementSpeed = 0.0;
         controls.lookSpeed = .002;        
 
-        const fog = new THREE.Fog('#000000', 0.001, 1.8);
+        const fog = new THREE.Fog('#000000', 0.001, 2.15);
         scene.fog = fog;
 
         const composer = new EffectComposer(renderer);
@@ -135,8 +135,8 @@
         composer.addPass(effectFXAA);
 
         const bokehPass = new BokehPass(scene, camera, {
-            focus: 0.20,
-            aperture: 0.0065,
+            focus: 0.10,
+            aperture: 0.005,
             maxblur: 0.005,
             width: sizes.width,
             height: sizes.height
