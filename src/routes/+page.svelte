@@ -233,9 +233,13 @@
         }
     });
 
-    const scramble = () => {
-        new TextScramble(h1, 'SRCHERS');
-        new TextScramble(h2, 'LAUNCHING 2025');
+    const scramble = async () => {
+        const title = new TextScramble(h1, 'SRCHERS', 15);
+        await title.start();
+
+        const subtitle = new TextScramble(h2, 'LAUNCHING 2025', 15);
+        await subtitle.start();
+
     }
 </script>
 
@@ -245,6 +249,6 @@
     <!-- <img src={`${srcFile}`} class="scale-50 md:scale-100 absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-10" alt="logo">
     <img src="/launching.svg" class="scale-50 md:scale-100 absolute left-1/2 -translate-x-1/2 top-2/3 -translate-y-2/3  z-10" alt="logo"> -->
 
-    <h1 on:mouseenter={scramble} class="font-reglo font-bold text-8xl text-orange-100 leading-10 tracking-widest absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2" bind:this={h1}> </h1>
-    <h2 class="font-reglo font-bold text-3xl text-orange-100 leading-10 tracking-widest absolute left-1/2 -translate-x-1/2 top-1/2 translate-y-20" bind:this={h2}> </h2>
+    <h1 on:mouseenter={scramble} class="font-reglo font-bold text-4xl md:text-8xl text-orange-100 leading-10 tracking-widest absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 whitespace-nowrap" bind:this={h1}> </h1>
+    <h2 class="font-reglo font-bold text-base md:text-3xl text-orange-100 leading-10 tracking-widest absolute left-1/2 -translate-x-1/2 top-1/2 translate-y-20 whitespace-nowrap" bind:this={h2}> </h2>
 <!-- {/if} -->
