@@ -237,7 +237,7 @@
 </script>
 
 
-<div class="fixed top-0 left-0 -z-10 h-lvh w-full">
+<div class="fixed top-0 left-0 -z-10 h-screen w-full">
     <canvas bind:this={canvas}></canvas>
 </div>
 <div bind:this={wrapper} class="h-lvh font-jetbrains-mono text-black">
