@@ -15,9 +15,8 @@
     import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js'
     import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js'
 	import TextScramble from '$lib/TextScramble.js';
-    import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 
-    let canvas, h1, h2, controls, active, srcFile;
+    let canvas, h1, h2a, h2b, controls, active, srcFile;
     let wrapper;
     let loaded = false;
     
@@ -46,7 +45,7 @@
         renderer.toneMappingExposure = 1.3
         renderer.setSize(sizes.width, sizes.height)
         renderer.setPixelRatio(sizes.pixelRatio);
-        scene.background = new THREE.Color('#F1E7D8')
+        scene.background = new THREE.Color('#f2ece3')
 
         const resolutionPlane = { 'Resolution' : 500 }
 
@@ -55,20 +54,6 @@
         geometry.deleteAttribute('normal')
         geometry.rotateX(- Math.PI * 0.5)
         // geometry.translate(0.0, 0.0, 0.0 )
-
-        /**
-         * Environment map
-         */
-        // const rgbeLoader = new RGBELoader()
-        // rgbeLoader.load('/spruit_sunrise.hdr', (environmentMap) =>
-        // {
-        //     environmentMap.mapping = THREE.EquirectangularReflectionMapping
-
-        //     // scene.background = environmentMap
-        //     scene.backgroundBlurriness = 0.5
-        //     // scene.environment = environmentMap
-        // })
-
         
         const uniforms = {
             uTime: new THREE.Uniform(0),
@@ -125,7 +110,7 @@
         controls.movementSpeed = 0.0;
         controls.lookSpeed = .002;        
 
-        const fog = new THREE.Fog('#F1E7D8', 0.001, 1.50);
+        const fog = new THREE.Fog('#f2ece3', 0.001, 1.50);
         scene.fog = fog;
 
         const composer = new EffectComposer(renderer);
@@ -227,11 +212,17 @@
 
     const scramble = async () => {
 
-        const title = new TextScramble(h1, h1.textContent, 15);
+        const title1 = 'SRCHERS';
+        const title = new TextScramble(h1, title1, 15);
         await title.start();
 
-        const subtitle = new TextScramble(h2, h2.textContent, 15);
-        await subtitle.start();
+        const title2 = 'LAUNCH';
+        const subtitle1 = new TextScramble(h2a, title2, 15);
+        await subtitle1.start();
+
+        const title3 = '2025';
+        const subtitle2 = new TextScramble(h2b, title3, 15);
+        await subtitle2.start();
 
     }
 </script>
@@ -240,22 +231,28 @@
 <div class="fixed top-0 left-0 -z-10 h-screen w-full">
     <canvas bind:this={canvas}></canvas>
 </div>
-<div bind:this={wrapper} class="h-lvh font-jetbrains-mono text-black">
+<div bind:this={wrapper} class="h-full font-jetbrains-mono text-black">
 
     {#if loaded}
-        <div class="h-lvh flex flex-col justify-center items-center md:gap-10">
-            <h1 on:mouseenter={scramble} bind:this={h1} class="text-center text-4xl md:text-6xl font-bold leading-10 tracking-[0.25em]">SRCHERS</h1>
-            <img class="" src="/srchers-logo.png" alt="Logo">
+        <div class="h-svh flex flex-col justify-between items-center md:gap-0 py-20">
+            <h1 on:mouseenter={scramble} bind:this={h1} class="text-center text-5xl md:text-6xl font-semibold leading-10 tracking-[0.2em]">SRCHERS</h1>
 
-            <div class="flex flex-col items-center gap-10">
-                <h2 bind:this={h2} class="text-center text-xl md:text-3xl font-semibold leading-10 tracking-widest">LAUNCH <br class="md:hidden">2025</h2>
-                <img src="/arrow.png" alt="scroll">
+            <div class="scale-75 md:scale-100">
+                <img class="animate-spin" src="/srchers-logo.png" alt="Logo">
+            </div>
+
+            <div class="flex flex-col items-center gap-9">
+                <div class="flex flex-col md:flex-row items-center gap-0 md:gap-4">
+                    <h2 bind:this={h2a} class="text-center text-xl md:text-3xl font-medium tracking-[0.2em]">LAUNCH</h2>
+                    <h2 bind:this={h2b} class="text-center text-xl md:text-3xl font-medium tracking-[0.2em]">2025</h2>
+                </div>
+                <img class="animate-pulse" src="/arrow.png" alt="scroll">
             </div>
         </div>
 
-        <div class="h-lvh flex flex-col justify-center items-center md:w-1/2 2xl:w-1/3 mx-auto text-center gap-10 md:gap-20">
+        <div class="h-screen flex flex-col justify-center items-center md:w-1/2 2xl:w-1/3 mx-auto text-center gap-6 md:gap-20">
             <p class="text-center text-lg md:text-xl font-extrabold uppercase leading-relaxed tracking-wide">Beyond different</p>
-            <p class="text-base md:text-xl font-normal px-7 py-4 md:px-0 md:leading-7 tracking-tight md:tracking-wide">
+            <p class="text-base md:text-xl font-normal px-7 py-0 md:px-0 md:leading-7 tracking-tight md:tracking-wide">
                 At SRCHERS, we aim to be the bridge into a new world of futuristic fashion, design, and sustainability. We believe in pushing the boundaries while redefining what luxury and class looks like for the modern era.
                 Our brand prioritizes innovation, elegance, and sustainability, fusing style with conscience. We redefine luxury bags and luggage with new creations through our distinctive angular minimal designs. Each piece is meticulously crafted with clean lines, geometric shapes, and a minimalist aesthetic that exudes modernity and sophistication. Our designs not only elevate style and taste, but also reflect a conscious effort to minimize excess, embrace simplicity, and inspire the allure of distant horizons and the magic of discovery.
             </p>
