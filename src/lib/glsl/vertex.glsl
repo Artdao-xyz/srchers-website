@@ -118,8 +118,8 @@ float getElevation(vec3 position)
 float getElevationColor(vec3 position)
 {
     vec3 warpedPosition = position;
-    warpedPosition -= uTime * 0.05;
-    warpedPosition += cnoise(warpedPosition * uPositionFrequency * uWarpFrequency * 10.0) * uWarpStrength;
+    warpedPosition -= uTime * 0.25;
+    warpedPosition += cnoise(warpedPosition * uPositionFrequency * 0.50 * uWarpFrequency) * uWarpStrength;
     
     float elevation = 0.0;
     elevation += cnoise(warpedPosition * uPositionFrequency * 3.0 ) / 2.0;

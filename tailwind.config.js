@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
         fontFamily: {
-            'reglo':
-                "Reglo, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+            'jetbrains-mono':
+                "JetBrainsMono, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         },
     }
   },

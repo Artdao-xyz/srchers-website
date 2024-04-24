@@ -1,9 +1,15 @@
 @font-face {
-	font-family: 'Reglo';
-	src: url('/fonts/Reglo-Bold.woff');
+	font-family: 'JetBrainsMono';
+    src: url('/fonts/JetBrainsMono.woff2');
 	font-style: normal;
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+    margin: 0;
+    padding: 0;
+    background-color: #F1E7D8;
+}
