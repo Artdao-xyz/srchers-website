@@ -140,10 +140,10 @@
 
         onresize = () => {
 
-            // if (window.innerWidth !== sizes.width) {
+            if (window.innerWidth !== sizes.width) {
 
-                sizes.width = canvas.parentElement.clientWidth;
-                sizes.height = canvas.parentElement.clientHeight;
+                sizes.width = window.innerWidth;
+                sizes.height = window.innerHeight;
 
                 camera.aspect = sizes.width / sizes.height;
                 camera.updateProjectionMatrix();
@@ -152,7 +152,7 @@
                 renderer.setSize(sizes.width, sizes.height);
                 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-            // };
+            };
             
         };
 
@@ -228,9 +228,10 @@
 </script>
 
 
-<div class="fixed top-0 left-0 -z-10 h-screen w-full">
+<div class="fixed top-0 left-0 -z-10 h-lvh w-full">
     <canvas bind:this={canvas}></canvas>
 </div>
+
 <div bind:this={wrapper} class="h-full font-jetbrains-mono text-black">
 
     {#if loaded}
@@ -250,7 +251,7 @@
             </div>
         </div>
 
-        <div class="h-screen flex flex-col justify-center items-center md:w-1/2 2xl:w-1/3 mx-auto text-center gap-6 md:gap-20">
+        <div class="h-lvh flex flex-col justify-center items-center md:w-1/2 2xl:w-1/3 mx-auto text-center gap-6 md:gap-20">
             <p class="text-center text-lg md:text-xl font-extrabold uppercase leading-relaxed tracking-wide">Beyond different</p>
             <p class="text-base md:text-xl font-normal px-7 py-0 md:px-0 md:leading-7 tracking-tight md:tracking-wide">
                 At SRCHERS, we aim to be the bridge into a new world of futuristic fashion, design, and sustainability. We believe in pushing the boundaries while redefining what luxury and class looks like for the modern era.
