@@ -3,12 +3,15 @@ export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
     extend: {
+        colors: {
+            'alternative-black': '#24241C',
+        },
         fontFamily: {
             'jetbrains-mono':
                 "JetBrainsMono, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         },
         animation: {
-            spin: 'spin 30s linear infinite',
+            spin: 'spin s linear infinite',
         },
         keyframes: {
             pulse: {
