@@ -255,7 +255,7 @@
 
         <div class="h-lvh flex flex-col justify-center items-center md:w-1/2 2xl:w-1/3 mx-auto text-center gap-10 md:gap-20">
             <p class="text-center text-lg md:text-xl font-extrabold uppercase leading-relaxed tracking-wide">Beyond different</p>
-            <p class="text-base md:text-xl font-normal px-7 py-4 md:px-0 leading-7 tracking-wide">
+            <p class="text-base md:text-xl font-normal px-7 py-4 md:px-0 md:leading-7 tracking-tight md:tracking-wide">
                 At SRCHERS, we aim to be the bridge into a new world of futuristic fashion, design, and sustainability. We believe in pushing the boundaries while redefining what luxury and class looks like for the modern era.
                 Our brand prioritizes innovation, elegance, and sustainability, fusing style with conscience. We redefine luxury bags and luggage with new creations through our distinctive angular minimal designs. Each piece is meticulously crafted with clean lines, geometric shapes, and a minimalist aesthetic that exudes modernity and sophistication. Our designs not only elevate style and taste, but also reflect a conscious effort to minimize excess, embrace simplicity, and inspire the allure of distant horizons and the magic of discovery.
             </p>
