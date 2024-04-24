@@ -49,10 +49,11 @@
 
         const resolutionPlane = { 'Resolution' : 500 }
 
-        const geometry = new THREE.PlaneGeometry(3, 3, resolutionPlane.Resolution, resolutionPlane.Resolution)
+        const geometry = new THREE.PlaneGeometry(4, 4, resolutionPlane.Resolution, resolutionPlane.Resolution)
         geometry.deleteAttribute('uv')
         geometry.deleteAttribute('normal')
         geometry.rotateX(- Math.PI * 0.5)
+        // geometry.rotateY(- Math.PI * 0.5)
         // geometry.translate(0.0, 0.0, 0.0 )
         
         const uniforms = {
@@ -98,6 +99,7 @@
         const camera = new THREE.PerspectiveCamera(30, sizes.width / sizes.height, 0.1, 100)
         camera.position.set(0, 0.4, 0);
         camera.rotation.x = -Math.PI / 5;
+  
         //debug view
         // camera.position.set(0, 10.20, 0);
         // camera.rotation.x = -Math.PI / 2;
@@ -109,7 +111,7 @@
         controls.lookVertical = false;
         controls.movementSpeed = 0.0;
         controls.lookSpeed = .002;        
-
+        
         const fog = new THREE.Fog('#f2ece3', 0.001, 1.50);
         scene.fog = fog;
 
@@ -232,7 +234,7 @@
     <canvas bind:this={canvas}></canvas>
 </div>
 
-<div bind:this={wrapper} class="h-full font-jetbrains-mono text-alternative-black">
+<div bind:this={wrapper} class="max-w-[1440px] h-full font-jetbrains-mono text-alternative-black mx-auto">
 
     {#if loaded}
         <div class="h-svh flex flex-col justify-between items-center md:gap-0 py-20">
@@ -247,14 +249,15 @@
                     <h2 bind:this={h2a} class="text-center text-xl md:text-2xl font-regular tracking-[0.2em]">LAUNCH</h2>
                     <h2 bind:this={h2b} class="text-center text-xl md:text-2xl font-regular tracking-[0.2em]">2025</h2>
                 </div>
-                <img class="animate-pulse" src="/arrow.png" alt="scroll">
+                <a href="#text"><img class="animate-pulse" src="/arrow.png" alt="scroll"></a>
             </div>
         </div>
 
-        <div class="h-lvh flex flex-col justify-center items-center md:w-1/2 2xl:w-1/3 mx-auto text-center gap-6 md:gap-20">
+        <div id="text" class="h-svh flex flex-col justify-center items-center text-center gap-6 md:gap-20">
             <p class="text-center text-lg md:text-xl font-bold uppercase leading-relaxed tracking-wide">Beyond different</p>
-            <p class="text-base md:text-xl font-normal px-7 py-0 md:px-0 md:leading-7 tracking-tight md:tracking-wide">
-                At SRCHERS, we aim to be the bridge into a new world of futuristic fashion, design, and sustainability. We believe in pushing the boundaries while redefining what luxury and class looks like for the modern era.
+            <p class="text-base md:text-lg font-normal px-6 md:px-0 md:leading-7 tracking-tight md:tracking-wide md:mx-96 2xl:mx-[450px]">
+                At SRCHERS, we aim to be the bridge into a new world of futuristic fashion, design, and sustainability. We believe in pushing the boundaries while redefining what luxury and class looks like for the modern era. 
+                <br><br>
                 Our brand prioritizes innovation, elegance, and sustainability, fusing style with conscience. We redefine luxury bags and luggage with new creations through our distinctive angular minimal designs. Each piece is meticulously crafted with clean lines, geometric shapes, and a minimalist aesthetic that exudes modernity and sophistication. Our designs not only elevate style and taste, but also reflect a conscious effort to minimize excess, embrace simplicity, and inspire the allure of distant horizons and the magic of discovery.
             </p>
         </div>

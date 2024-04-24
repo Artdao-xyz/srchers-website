@@ -22,7 +22,7 @@ void main()
     // Color
     // float offset = 0.1; // Adjust this value as needed
     // float color = step(0.0, vPosition.y);
-    float color = y_smoothstep(0.0, 1.0, vPosition.y * 10.0);
+    float color = y_smoothstep(0.0, 1.0, -vPosition.y * 10.0);
 
     // add brightness
     // color += 0.5;  
