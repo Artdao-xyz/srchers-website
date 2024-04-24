@@ -244,8 +244,8 @@
 
             <div class="flex flex-col items-center gap-9">
                 <div class="flex flex-col md:flex-row items-center gap-0 md:gap-4">
-                    <h2 bind:this={h2a} class="text-center text-xl md:text-3xl font-medium tracking-[0.2em]">LAUNCH</h2>
-                    <h2 bind:this={h2b} class="text-center text-xl md:text-3xl font-medium tracking-[0.2em]">2025</h2>
+                    <h2 bind:this={h2a} class="text-center text-xl md:text-2xl font-regular tracking-[0.2em]">LAUNCH</h2>
+                    <h2 bind:this={h2b} class="text-center text-xl md:text-2xl font-regular tracking-[0.2em]">2025</h2>
                 </div>
                 <img class="animate-pulse" src="/arrow.png" alt="scroll">
             </div>
