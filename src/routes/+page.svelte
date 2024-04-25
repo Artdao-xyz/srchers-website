@@ -25,8 +25,10 @@
         active = window.location.hash === '#debug';
 
         const sizes = {
-            width: canvas.parentElement.clientWidth,
-            height: canvas.parentElement.clientHeight,
+            width: window.innerWidth,
+            height: window.innerHeight,
+            // width: canvas.parentElement.clientWidth,
+            // height: canvas.parentElement.clientHeight,
             pixelRatio: Math.min(window.devicePixelRatio, 2)
         };
 
@@ -142,7 +144,7 @@
 
         onresize = () => {
 
-            if (window.innerWidth !== sizes.width) {
+            // if (window.innerWidth !== sizes.width) {
 
                 sizes.width = window.innerWidth;
                 sizes.height = window.innerHeight;
@@ -154,7 +156,7 @@
                 renderer.setSize(sizes.width, sizes.height);
                 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-            };
+            // };
             
         };
 
@@ -230,32 +232,33 @@
 </script>
 
 
-<div class="fixed top-0 left-0 -z-10 h-lvh w-full">
+<!-- <div class="fixed top-0 left-0 -z-10 h-lvh w-full">
     <canvas bind:this={canvas}></canvas>
-</div>
+</div> -->
+<canvas class="fixed top-0 left-0 -z-10 outline-none" bind:this={canvas}></canvas>
 
 <div bind:this={wrapper} class="max-w-[1440px] h-full font-jetbrains-mono text-alternative-black mx-auto">
 
     {#if loaded}
-        <div class="h-svh flex flex-col justify-between items-center md:gap-0 py-20">
-            <h1 on:mouseenter={scramble} bind:this={h1} class="text-center text-5xl md:text-6xl font-semibold leading-10 tracking-[0.2em]">SRCHERS</h1>
+        <div class="h-svh flex flex-col justify-between items-center lg:gap-0 py-20">
+            <h1 on:mouseenter={scramble} bind:this={h1} class="text-center text-5xl lg:text-6xl font-semibold leading-10 tracking-[0.2em]">SRCHERS</h1>
 
-            <div class="scale-75 md:scale-100">
+            <div class="scale-75 lg:scale-100">
                 <img class="animate-spin" src="/srchers-logo.png" alt="Logo">
             </div>
 
             <div class="flex flex-col items-center gap-9">
-                <div class="flex flex-col md:flex-row items-center gap-0 md:gap-4">
-                    <h2 bind:this={h2a} class="text-center text-xl md:text-2xl font-regular tracking-[0.2em]">LAUNCH</h2>
-                    <h2 bind:this={h2b} class="text-center text-xl md:text-2xl font-regular tracking-[0.2em]">2025</h2>
+                <div class="flex flex-col lg:flex-row items-center gap-0 lg:gap-4">
+                    <h2 bind:this={h2a} class="text-center text-xl lg:text-2xl font-regular tracking-[0.2em]">LAUNCH</h2>
+                    <h2 bind:this={h2b} class="text-center text-xl lg:text-2xl font-regular tracking-[0.2em]">2025</h2>
                 </div>
                 <a href="#text"><img class="animate-pulse" src="/arrow.png" alt="scroll"></a>
             </div>
         </div>
 
-        <div id="text" class="h-svh flex flex-col justify-center items-center text-center gap-6 md:gap-20">
-            <p class="text-center text-lg md:text-xl font-bold uppercase leading-relaxed tracking-wide">Beyond different</p>
-            <p class="text-base md:text-lg font-normal px-6 md:px-0 md:leading-7 tracking-tight md:tracking-wide md:mx-96 2xl:mx-[450px]">
+        <div id="text" class="h-svh flex flex-col justify-center items-center text-center gap-6 lg:gap-20">
+            <p class="text-center text-lg lg:text-xl font-bold uppercase leading-relaxed tracking-wide">Beyond different</p>
+            <p class="text-sm lg:text-lg font-normal px-6 lg:px-0 lg:leading-7 tracking-tight lg:tracking-wide md:mx-36 lg:mx-96 2xl:mx-[450px]">
                 At SRCHERS, we aim to be the bridge into a new world of futuristic fashion, design, and sustainability. We believe in pushing the boundaries while redefining what luxury and class looks like for the modern era. 
                 <br><br>
                 Our brand prioritizes innovation, elegance, and sustainability, fusing style with conscience. We redefine luxury bags and luggage with new creations through our distinctive angular minimal designs. Each piece is meticulously crafted with clean lines, geometric shapes, and a minimalist aesthetic that exudes modernity and sophistication. Our designs not only elevate style and taste, but also reflect a conscious effort to minimize excess, embrace simplicity, and inspire the allure of distant horizons and the magic of discovery.
