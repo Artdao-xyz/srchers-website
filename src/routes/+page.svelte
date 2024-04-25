@@ -256,7 +256,7 @@
             </div>
         </div>
 
-        <div id="text" class="h-svh flex flex-col justify-center items-center text-center gap-6 lg:gap-20">
+        <div id="text" class="h-screen flex flex-col justify-center items-center text-center gap-6 lg:gap-20">
             <p class="text-center text-lg lg:text-xl font-bold uppercase leading-relaxed tracking-wide">Beyond different</p>
             <p class="text-sm lg:text-lg font-normal px-6 lg:px-0 lg:leading-7 tracking-tight lg:tracking-wide md:mx-36 lg:mx-96 2xl:mx-[450px]">
                 At SRCHERS, we aim to be the bridge into a new world of futuristic fashion, design, and sustainability. We believe in pushing the boundaries while redefining what luxury and class looks like for the modern era. 
