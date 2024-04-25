@@ -16,6 +16,8 @@
     import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js'
 	import TextScramble from '$lib/TextScramble.js';
 
+    import iosInnerHeight from '$lib/iosInnerHeight.js';
+
     let canvas, h1, h2a, h2b, controls, active, srcFile;
     let wrapper;
     let loaded = false;
@@ -25,12 +27,15 @@
         active = window.location.hash === '#debug';
 
         const sizes = {
-            width: window.innerWidth,
-            height: window.innerHeight,
-            // width: canvas.parentElement.clientWidth,
-            // height: canvas.parentElement.clientHeight,
+            // width: window.innerWidth,
+            // height: window.innerHeight,
+            width: canvas.parentElement.clientWidth,
+            height: canvas.parentElement.clientHeight + 120,
             pixelRatio: Math.min(window.devicePixelRatio, 2)
         };
+
+        let height = iosInnerHeight();
+        console.log(height);
 
         const scene = new THREE.Scene();
 
@@ -144,7 +149,7 @@
 
         onresize = () => {
 
-            // if (window.innerWidth !== sizes.width) {
+            if (window.innerWidth !== sizes.width) {
 
                 sizes.width = window.innerWidth;
                 sizes.height = window.innerHeight;
@@ -156,7 +161,7 @@
                 renderer.setSize(sizes.width, sizes.height);
                 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-            // };
+            };
             
         };
 
@@ -232,10 +237,10 @@
 </script>
 
 
-<!-- <div class="fixed top-0 left-0 -z-10 h-lvh w-full">
+<div class="fixed top-0 left-0 -z-10 h-lvh w-full">
     <canvas bind:this={canvas}></canvas>
-</div> -->
-<canvas class="fixed top-0 left-0 -z-10 outline-none" bind:this={canvas}></canvas>
+</div>
+<!-- <canvas class="fixed top-0 left-0 -z-10 outline-none" bind:this={canvas}></canvas> -->
 
 <div bind:this={wrapper} class="max-w-[1440px] h-full font-jetbrains-mono text-alternative-black mx-auto">
 
