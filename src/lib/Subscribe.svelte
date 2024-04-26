@@ -63,7 +63,7 @@
         required
         value=""
         placeholder="ENTER EMAIL"
-        class="bg-transparent text-sm lg:text-lg font-bold tracking-wide uppercase placeholder:text-alternative-black border-b-[1px] border-alternative-black outline-none rounded-none w-56"
+        class="bg-transparent text-base lg:text-lg font-bold tracking-wide uppercase placeholder:text-alternative-black border-b-[1px] border-alternative-black outline-none rounded-none w-56"
     />
 
     <button type="submit"><img src="/submit.svg" alt="submit"></button>
