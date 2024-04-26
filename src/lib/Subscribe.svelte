@@ -55,7 +55,6 @@
 
 <form 
     on:submit|preventDefault={handleSubmit}
-    action="/api/subscribe"
     method="POST"
     class="flex gap-6">
 
