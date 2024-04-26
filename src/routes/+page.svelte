@@ -15,6 +15,7 @@
     import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js'
     import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js'
 	import TextScramble from '$lib/TextScramble.js';
+    import Subscribe from '$lib/Subscribe.svelte';
 
     import iosInnerHeight from '$lib/iosInnerHeight.js';
 
@@ -52,7 +53,7 @@
         renderer.toneMappingExposure = 1.3
         renderer.setSize(sizes.width, sizes.height)
         renderer.setPixelRatio(sizes.pixelRatio);
-        scene.background = new THREE.Color('#f2ece3')
+        scene.background = new THREE.Color('#F6F4F3')
 
         const resolutionPlane = { 'Resolution' : 500 }
 
@@ -80,14 +81,16 @@
             silent: true,
 
             // MeshPhysicalMaterial
-            metalness: 0.75,
-            roughness: 0.75,
-            color: '#ffffff',
+            metalness: 0.9,
+            roughness: 0.9,
+            color: '#F6F4F3',
         })
 
         const terrain = new THREE.Mesh(geometry, material)
+        terrain.castShadow = true
+        terrain.receiveShadow = true
         scene.add(terrain)
-        let lightColor = '#ffffff';
+        let lightColor = '#F6F4F3';
         let directionalLight = new THREE.DirectionalLight(lightColor, 2.0)
         directionalLight.position.set(-6.25, 8, -4)
         directionalLight.castShadow = true
@@ -100,7 +103,7 @@
         directionalLight.shadow.camera.left = -8
         scene.add(directionalLight)
         
-        const ambientLight = new THREE.AmbientLight('#f0f5ff', .5)
+        const ambientLight = new THREE.AmbientLight('#F6F4F3', .5)
         scene.add(ambientLight)
 
         const camera = new THREE.PerspectiveCamera(30, sizes.width / sizes.height, 0.1, 100)
@@ -119,7 +122,7 @@
         controls.movementSpeed = 0.0;
         controls.lookSpeed = .002;        
         
-        const fog = new THREE.Fog('#f2ece3', 0.001, 1.50);
+        const fog = new THREE.Fog('#F6F4F3', 0.001, 2.28);
         scene.fog = fog;
 
         const composer = new EffectComposer(renderer);
@@ -132,7 +135,7 @@
         composer.addPass(effectFXAA);
 
         const bokehPass = new BokehPass(scene, camera, {
-            focus: 0.35,
+            focus: 0.15,
             aperture: 0.005,
             maxblur: 0.005,
             width: sizes.width,
@@ -144,7 +147,8 @@
         bloomPass.enabled = false;
         composer.addPass(bloomPass);
 
-        const filmPass = new FilmPass(0.15, 0.025, 648, false);
+        const filmPass = new FilmPass(0.25, 0.025, 648, false);
+        // filmPass.enabled = false;
         composer.addPass(filmPass);
 
         onresize = () => {
@@ -202,7 +206,7 @@
                 uTimeAmount = value
             })
             const lightFolder = gui.addFolder('Light')
-            lightFolder.addColor({ lightColor: '#ffffff' }, 'lightColor').name('color').onChange((value) => {
+            lightFolder.addColor({ lightColor: '#F6F4F3' }, 'lightColor').name('color').onChange((value) => {
                 directionalLight.color.set(value)
             })
             lightFolder.add(directionalLight, 'intensity', 0, 7, 0.001).name('intensity');
@@ -216,6 +220,10 @@
             postProcessFolder.add(bloomPass, 'threshold', 0, 1, 0.001).name('Bloom Threshold')
             postProcessFolder.add(bokehPass, 'enabled').name('Bokeh')
             postProcessFolder.add(fog, 'far', 0.001, 15, 0.001).name('Fog Far')
+            //add fog color picker
+            postProcessFolder.addColor({ fogColor: '#F6F4F3' }, 'fogColor').name('Fog Color').onChange((value) => {
+                scene.fog.color.set(value)
+            })
         }
     });
 
@@ -225,7 +233,7 @@
         const title = new TextScramble(h1, title1, 15);
         await title.start();
 
-        const title2 = 'LAUNCH';
+        const title2 = 'LAUNCHING';
         const subtitle1 = new TextScramble(h2a, title2, 15);
         await subtitle1.start();
 
@@ -245,29 +253,27 @@
 <div bind:this={wrapper} class="max-w-[1440px] h-full font-jetbrains-mono text-alternative-black mx-auto">
 
     {#if loaded}
-        <div class="h-svh flex flex-col justify-between items-center lg:gap-0 py-20">
-            <h1 on:mouseenter={scramble} bind:this={h1} class="text-center text-5xl lg:text-6xl font-semibold leading-10 tracking-[0.2em]">SRCHERS</h1>
-
+        <div class="h-svh flex flex-col justify-between lg:justify-center items-center lg:gap-20 py-20">
+            <div>
+                <h1 on:mouseenter={scramble} bind:this={h1} class="text-center text-5xl lg:text-7xl font-semibold leading-10 tracking-wide">SRCHERS</h1>
+                <p class="text-center text-lg lg:text-2xl font-medium uppercase leading-relaxed mt-4 lg:mt-3">Beyond different</p>
+            </div>
+            
             <div class="scale-75 lg:scale-100">
                 <img class="animate-spin" src="/srchers-logo.png" alt="Logo">
             </div>
 
-            <div class="flex flex-col items-center gap-9">
-                <div class="flex flex-col lg:flex-row items-center gap-0 lg:gap-4">
-                    <h2 bind:this={h2a} class="text-center text-xl lg:text-2xl font-regular tracking-[0.2em]">LAUNCH</h2>
-                    <h2 bind:this={h2b} class="text-center text-xl lg:text-2xl font-regular tracking-[0.2em]">2025</h2>
-                </div>
-                <a href="#text"><img class="animate-pulse" src="/arrow.png" alt="scroll"></a>
+            <div class="flex items-center gap-3">
+                <h2 bind:this={h2a} class="text-center text-xl lg:text-2xl font-medium tracking-10">LAUNCHING</h2>
+                <h2 bind:this={h2b} class="text-center text-xl lg:text-2xl font-medium tracking-10">2025</h2>
             </div>
+
+            <a href="#text"><img class="animate-pulse" src="/arrow.png" alt="scroll"></a>
         </div>
 
-        <div id="text" class="h-screen flex flex-col justify-center items-center text-center gap-6 lg:gap-20">
-            <p class="text-center text-lg lg:text-xl font-bold uppercase leading-relaxed tracking-wide">Beyond different</p>
-            <p class="text-sm lg:text-lg font-normal px-6 lg:px-0 lg:leading-7 tracking-tight lg:tracking-wide md:mx-36 lg:mx-96 2xl:mx-[450px]">
-                At SRCHERS, we aim to be the bridge into a new world of futuristic fashion, design, and sustainability. We believe in pushing the boundaries while redefining what luxury and class looks like for the modern era. 
-                <br><br>
-                Our brand prioritizes innovation, elegance, and sustainability, fusing style with conscience. We redefine luxury bags and luggage with new creations through our distinctive angular minimal designs. Each piece is meticulously crafted with clean lines, geometric shapes, and a minimalist aesthetic that exudes modernity and sophistication. Our designs not only elevate style and taste, but also reflect a conscious effort to minimize excess, embrace simplicity, and inspire the allure of distant horizons and the magic of discovery.
-            </p>
+        <div id="text" class="h-screen flex flex-col justify-center items-center">
+            
+            <Subscribe />
         </div>
         {/if}
 </div>

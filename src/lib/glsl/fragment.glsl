@@ -18,14 +18,17 @@ float y_smoothstep(float a, float b, float x) {
 }
 void main()
 {    
-    // float color = 1.0;
+    float color = 1.0;
     // Color
     // float offset = 0.1; // Adjust this value as needed
     // float color = step(0.0, vPosition.y);
-    float color = y_smoothstep(0.0, 1.0, -vPosition.y * 10.0);
+    // float color = y_smoothstep(0.0, 1.0, -vPosition.y * 10.0);
 
     // add brightness
     // color += 0.5;  
+
+    //instead of black i need #838383
+    // color = mix(0.0, 0.5, color);
 
     // Final color
     csm_DiffuseColor = vec4(vec3(color), 1.0);

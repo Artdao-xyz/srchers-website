@@ -11,7 +11,7 @@ export default {
                 "JetBrainsMono, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         },
         animation: {
-            spin: 'spin s linear infinite',
+            spin: 'spin 50s linear infinite',
         },
         keyframes: {
             pulse: {

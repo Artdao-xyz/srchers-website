@@ -50,7 +50,7 @@ export default class TextScramble {
                 complete++;
                 output += to;
             } else if (this.frame >= start) {
-                if (!char || Math.random() < 0.28) {
+                if (!char || Math.random() < 0.10) {
                     char = this.randomChar();
                     this.queue[i].char = char;
                 }
