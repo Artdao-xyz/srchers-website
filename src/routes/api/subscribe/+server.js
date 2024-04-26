@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { MAILCHIMP_API_KEY } from '$env/static/private';
+// import { MAILCHIMP_API_KEY } from '$env/static/private';
 
 const API_KEY = MAILCHIMP_API_KEY;
 const LIST_ID = '6f099dd01d';
