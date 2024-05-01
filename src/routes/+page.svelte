@@ -240,6 +240,9 @@
 <div bind:this={wrapper} class="max-w-[1440px] h-full font-jetbrains-mono text-alternative-black mx-auto">
 
     {#if loaded}
+
+        <a class="absolute left-6 top-6 lg:left-9" href="https://www.instagram.com/srchers/" target="_blank"><img src="/ig.svg"  alt="Instagram"></a>
+
         <div class="h-svh flex flex-col justify-between lg:justify-center items-center lg:gap-20 py-20">
             <div>
                 <h1 on:mouseenter={scramble} bind:this={h1} class="text-center text-5xl lg:text-7xl font-semibold leading-10 tracking-wide">SRCHERS</h1>
