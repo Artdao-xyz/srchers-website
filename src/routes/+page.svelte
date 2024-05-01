@@ -233,7 +233,7 @@
 </script>
 
 
-<div class="fixed top-0 left-0 -z-10 h-lvh w-full">
+<div class="fixed top-0 left-0 -z-10 h-full w-full">
     <canvas bind:this={canvas}></canvas>
 </div>
 
