@@ -17,9 +17,7 @@
 	import TextScramble from '$lib/TextScramble.js';
     import Subscribe from '$lib/Subscribe.svelte';
 
-    import iosInnerHeight from '$lib/iosInnerHeight.js';
-
-    let canvas, h1, h2a, h2b, controls, active, srcFile;
+    let canvas, h1, h2a, h2b, h2c, controls, active;
     let wrapper;
     let loaded = false;
     
@@ -28,15 +26,10 @@
         active = window.location.hash === '#debug';
 
         const sizes = {
-            // width: window.innerWidth,
-            // height: window.innerHeight,
             width: canvas.parentElement.clientWidth,
             height: canvas.parentElement.clientHeight + 120,
             pixelRatio: Math.min(window.devicePixelRatio, 2)
         };
-
-        let height = iosInnerHeight();
-        console.log(height);
 
         const scene = new THREE.Scene();
 
@@ -57,7 +50,7 @@
 
         const resolutionPlane = { 'Resolution' : 500 }
 
-        const geometry = new THREE.PlaneGeometry(4, 4, resolutionPlane.Resolution, resolutionPlane.Resolution)
+        const geometry = new THREE.PlaneGeometry(5, 5, resolutionPlane.Resolution, resolutionPlane.Resolution)
         geometry.deleteAttribute('uv')
         geometry.deleteAttribute('normal')
         geometry.rotateX(- Math.PI * 0.5)
@@ -68,10 +61,10 @@
             uTime: new THREE.Uniform(0),
             uPositionFrequency: new THREE.Uniform(0.55),
             uStrength: new THREE.Uniform(0.65),
-            uWarpFrequency: new THREE.Uniform(0.2),
-            uWarpStrength: new THREE.Uniform(0.9),
+            uWarpFrequency: new THREE.Uniform(20.0),
+            uWarpStrength: new THREE.Uniform(0.005),
         }
-
+        
         const material = new CustomShaderMaterial({
             // CSM
             baseMaterial: THREE.MeshStandardMaterial,
@@ -148,7 +141,6 @@
         composer.addPass(bloomPass);
 
         const filmPass = new FilmPass(0.25, 0.025, 648, false);
-        // filmPass.enabled = false;
         composer.addPass(filmPass);
 
         onresize = () => {
@@ -170,7 +162,7 @@
         };
 
         const clock = new THREE.Clock()
-        let uTimeAmount = 0.20;
+        let uTimeAmount = 0.05;
 
         loaded = true;
         setTimeout(() => scramble(), 0);
@@ -189,14 +181,7 @@
         if (active) {
             let gui = new GUI();
 
-            const folderShader = gui.addFolder('Shader')        
-            // gui.add( resolutionPlane, 'Resolution', [ 50, 100, 200, 500 ] ).onChange((value) => {
-            //     console.log(value)
-            //     // const geometry = new THREE.PlaneGeometry(3, 3, value, value)
-            //     geometry.dispose(); // Clean up previous geometry
-            //     // terrain.geometry = geometry;
-            //     }
-            // )
+            const folderShader = gui.addFolder('Shader');
 
             folderShader.add(uniforms.uPositionFrequency, 'value', 0.5, 0.85, 0.001).name('uPositionFrequency')
             folderShader.add(uniforms.uStrength, 'value', 0.35, 0.95, 0.001).name('uStrength')
@@ -220,7 +205,6 @@
             postProcessFolder.add(bloomPass, 'threshold', 0, 1, 0.001).name('Bloom Threshold')
             postProcessFolder.add(bokehPass, 'enabled').name('Bokeh')
             postProcessFolder.add(fog, 'far', 0.001, 15, 0.001).name('Fog Far')
-            //add fog color picker
             postProcessFolder.addColor({ fogColor: '#F6F4F3' }, 'fogColor').name('Fog Color').onChange((value) => {
                 scene.fog.color.set(value)
             })
@@ -232,6 +216,10 @@
         const title1 = 'SRCHERS';
         const title = new TextScramble(h1, title1, 15);
         await title.start();
+
+        const title4 = 'BEYOND DIFFERENT';
+        const subtitle3 = new TextScramble(h2c, title4, 15);
+        await subtitle3.start();
 
         const title2 = 'LAUNCHING';
         const subtitle1 = new TextScramble(h2a, title2, 15);
@@ -248,7 +236,6 @@
 <div class="fixed top-0 left-0 -z-10 h-lvh w-full">
     <canvas bind:this={canvas}></canvas>
 </div>
-<!-- <canvas class="fixed top-0 left-0 -z-10 outline-none" bind:this={canvas}></canvas> -->
 
 <div bind:this={wrapper} class="max-w-[1440px] h-full font-jetbrains-mono text-alternative-black mx-auto">
 
@@ -256,12 +243,10 @@
         <div class="h-svh flex flex-col justify-between lg:justify-center items-center lg:gap-20 py-20">
             <div>
                 <h1 on:mouseenter={scramble} bind:this={h1} class="text-center text-5xl lg:text-7xl font-semibold leading-10 tracking-wide">SRCHERS</h1>
-                <p class="text-center text-lg lg:text-2xl font-medium uppercase leading-relaxed mt-4 lg:mt-3">Beyond different</p>
+                <p bind:this={h2c} class="text-center text-lg lg:text-2xl font-medium uppercase leading-relaxed mt-4 lg:mt-3">Beyond different</p>
             </div>
             
-            <div class="scale-75 lg:scale-100">
-                <img class="animate-spin" src="/srchers-logo.png" alt="Logo">
-            </div>
+            <img class="w-52 lg:w-64 h-52 lg:h-64" src="/srchers-logo-optimize.gif" alt="Logo">
 
             <div class="flex items-center gap-3">
                 <h2 bind:this={h2a} class="text-center text-xl lg:text-2xl font-medium tracking-10">LAUNCHING</h2>

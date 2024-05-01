@@ -9,8 +9,6 @@ varying float vUpDot;
 
 varying vec2 vUv;
 
-#include ./includes/simplexNoise2d.glsl
-
 // Classic Perlin 3D Noise 
 // by Stefan Gustavson
 //
@@ -107,6 +105,7 @@ float getElevation(vec3 position)
     elevation += cnoise(warpedPosition * uPositionFrequency * 2.0) / 4.0;
     elevation += cnoise(warpedPosition * uPositionFrequency * 4.0) / 8.0;
     elevation += cnoise(warpedPosition * uPositionFrequency * 8.0) / 12.0;
+    elevation += cnoise(warpedPosition * uPositionFrequency * 16.0) / 24.0;
 
     // float elevationSign = sign(elevation);
     // elevation = pow(abs(elevation), 3.0) * elevationSign;
